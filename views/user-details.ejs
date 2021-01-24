@@ -1,5 +1,9 @@
 <h1>Hi <%= name %></h1>
+<h2>Your details are:</h2>
+<p>Name: <%= name %></p>
+<p>Email Adress: <%= email %></p>
+<p>Id: <%= id %></p>
+
 <form action="/logout?_method=DELETE" method="POST">
     <button type="submit">Log Out</button>
 </form>
-<a href="/user-details">See Your Details</a>

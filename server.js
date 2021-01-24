@@ -12,7 +12,6 @@ const flash = require('express-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 
-
 const initializePassport = require('./passport-config');
 initializePassport(
     passport,
@@ -39,6 +38,14 @@ app.use(methodOverride('_method'));
 
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.name });
+})
+
+app.get('/user-details', checkAuthenticated, (req, res) => {
+    res.render('user-details.ejs', {
+        name: req.user.name,
+        email: req.user.email,
+        id: req.user.id
+    })
 })
 
 app.get('/login', checkNotAuthenticated, (req, res) => {
@@ -71,7 +78,7 @@ app.post('/register', checkNotAuthenticated, async (req, res) => {
     } catch {
         res.redirect('/register');
     }
-    console.log(users)
+    // console.log(users)
 })
 
 app.delete('/logout', (req, res) => {
