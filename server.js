@@ -35,7 +35,10 @@ app.use(passport.initialize());
 // to store variables to be persisted across the session
 app.use(passport.session());
 app.use(methodOverride('_method'));
+// my middleware
+app.use(printUsers);
 
+// here we can use req.user because of app.use(passport.session())
 app.get('/', checkAuthenticated, (req, res) => {
     res.render('index.ejs', { name: req.user.name });
 })
@@ -110,4 +113,12 @@ function checkNotAuthenticated(req, res, next) {
     next();
 }
 
-app.listen(3000);
+function printUsers(req, res, next) {
+    console.log(users)
+    next()
+}
+
+const port = process.env.PORT;
+app.listen(port, () => {
+    console.log('server is up on ' + port)
+});
